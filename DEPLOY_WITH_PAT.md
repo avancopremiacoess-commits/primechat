@@ -1,5 +1,11 @@
 # Gerar e usar um Personal Access Token (PAT) para fazer push
 
+⚠️ AVISO DE SEGURANÇA (LEIA ANTES)
+
+- Este documento contém instruções para gerar e usar um Personal Access Token (PAT). NÃO compartilhe o token real em commits, issues, PRs ou qualquer lugar público. O token é sensível e oferece acesso ao(s) seu(s) repositório(s).
+- Prefira tokens fine-grained com escopos mínimos, use expiração curta e, para automações, prefira GitHub Actions + Secrets ou GitHub Apps com permissões restritas.
+- Para autenticação local, considere usar o GitHub CLI (`gh auth login`) ou o helper de credenciais do Git para evitar colar o token manualmente.
+
 Estas instruções mostram como gerar um Personal Access Token (PAT) e usá‑lo para enviar (push) commits para o GitHub a partir do terminal.
 
 1. Gerar o Personal Access Token (PAT)
@@ -46,4 +52,44 @@ Avisos e boas práticas de segurança
 - Prefira tokens fine‑grained (com escopo mínimo) quando possível, e escolha uma expiração curta.
 - Para automações e deploys, prefira usar GitHub Actions + Secrets ou um GitHub App com permissões restritas.
 - Alternativa mais segura para autenticar localmente: use o GitHub CLI (`gh auth login`) ou o helper de credenciais do Git (credential helper) para evitar colar o token manualmente.
+
+---
+
+English — Generate and use a Personal Access Token (PAT) to push
+
+⚠️ SECURITY NOTICE (READ FIRST)
+
+- This document explains how to generate and use a Personal Access Token (PAT). DO NOT share the actual token in commits, issues, pull requests, or any public channel. The token grants access to your repositories.
+- Prefer fine-grained tokens with minimal scopes, set a short expiration, and for CI/CD use GitHub Actions secrets or a GitHub App instead.
+- For local authentication, consider `gh auth login` (GitHub CLI) or a credential helper to avoid pasting tokens into the terminal.
+
+Steps
+
+1. Generate the PAT
+   - Visit https://github.com/settings/tokens while signed in.
+   - Click "Generate new token" > "Generate new token (classic)".
+   - Give the token a name like `dm-panel-deploy`.
+   - Select an expiration (e.g., 90 days).
+   - Check the `repo` scope (or select the minimal scopes you actually need).
+   - Click "Generate token".
+
+2. Copy the token
+   - GitHub will show the token ONCE. Copy it to a secure temporary place (e.g., a password manager). If you lose it, generate a new one.
+
+3. Push from the terminal (inside your project folder)
+   - Ensure the remote is set:
+     ```bash
+     git remote add origin https://github.com/<your-username>/<your-repo>.git
+     ```
+   - Push:
+     ```bash
+     git push -u origin main
+     ```
+
+4. When prompted by git
+   - `Username for 'https://github.com':` — enter your GitHub username.
+   - `Password for 'https://<user>@github.com':` — paste the PAT (not your account password) and press Enter.
+
+5. Verify
+   - If successful, git will show the push progress and the new branch on GitHub. Refresh the repository page to confirm.
 
