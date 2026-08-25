@@ -1,0 +1,19 @@
+{
+  "name": "dm-panel",
+  "version": "1.0.0",
+  "description": "Painel próprio para gerenciar automações de DM personalizada por IA em múltiplas contas de Instagram (uso com Manychat).",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= conta ? 'Editar conta' : 'Nova conta' %> — Painel DM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="wrap" style="max-width: 640px;">
+    <a href="/dashboard" class="back-link">← Voltar ao painel</a>
+    <h1><%= conta && conta.id ? 'Editar conta' : 'Nova conta' %></h1>
+
+    <% if (erro) { %>
+      <div class="erro"><%= erro %></div>
+    <% } %>
+
+    <form method="POST" action="<%= conta && conta.id ? '/contas/' + conta.id + '/editar' : '/contas/nova' %>">
+      <label for="nome">Nome da conta (ex: @minhaloja)</label>
+      <input type="text" id="nome" name="nome" value="<%= conta ? conta.nome : '' %>" required />
+
+      <label for="textoBase">Texto base da mensagem</label>
+      <textarea id="textoBase" name="textoBase" required><%= conta ? conta.textoBase : '' %></textarea>
+      <p class="helper">O que a DM deve comunicar (oferta, boas-vindas, próximo passo). A IA adapta esse texto ao comentário de cada pessoa — não precisa escrever igual toda vez.</p>
+
+      <label for="link">Link a enviar (opcional)</label>
+      <input type="url" id="link" name="link" placeholder="https://" value="<%= conta ? conta.link : '' %>" />
+
+      <label for="contexto">Contexto adicional (opcional)</label>
+      <textarea id="contexto" name="contexto"><%= conta ? conta.contexto : '' %></textarea>
+      <p class="helper">Preços, prazos, políticas de troca, o que a IA pode ou não afirmar.</p>
+
+      <% if (conta && conta.id) { %>
+        <label style="display:flex; align-items:center; gap:8px; margin-top:20px;">
+          <input type="checkbox" name="ativo" style="width:auto;" <%= conta.ativo ? 'checked' : '' %> />
+          Conta ativa
+        </label>
+      <% } %>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary"><%= conta && conta.id ? 'Salvar alterações' : 'Criar conta' %></button>
+        <a href="/dashboard" class="btn btn-secondary">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
